@@ -20,7 +20,7 @@ private final StudentRepository studentRepository;
         return studentRepository.save(student);
     }
     public Student readStudent (long id){
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElse(null);
     }
 
     public Student updateStudent (Student student){
@@ -35,4 +35,7 @@ private final StudentRepository studentRepository;
         return studentRepository.findByAge(age);
     }
 
+    public Collection<Student> findByAgeBetween(int min, int max){
+        return studentRepository.findByAgeBetween(min,max);
+    }
 }

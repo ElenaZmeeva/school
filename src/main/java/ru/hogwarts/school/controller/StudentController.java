@@ -18,12 +18,18 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
-    public ResponseEntity<Collection<Student>> getAllStudentsByAge (@RequestParam int age){
+    @GetMapping("{age}")
+    public ResponseEntity<Collection<Student>> getAllStudentsByAge (@PathVariable int age){
        if(age>0){
            return ResponseEntity.ok (studentService.studentsByAge(age));
        }
         return ResponseEntity.ok (Collections.emptyList());
+    }
+
+    @GetMapping
+    public ResponseEntity<Collection<Student>> getByAgeBetween (@RequestParam int min,
+                                                                @RequestParam int max){
+        return ResponseEntity.ok(studentService.findByAgeBetween(min,max));
     }
 
 
@@ -45,7 +51,7 @@ public class StudentController {
     public ResponseEntity<Student> updateStudent(@RequestBody Student student){
         Student student1= studentService.updateStudent(student);
         if(student1==null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(student1);
     }
@@ -55,4 +61,6 @@ public class StudentController {
          studentService.deleteStudent(id);
          return ResponseEntity.ok().build();
     }
+
+
 }
