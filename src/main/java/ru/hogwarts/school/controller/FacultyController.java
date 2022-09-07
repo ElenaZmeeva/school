@@ -18,7 +18,7 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping("{color}")
+    @GetMapping("/color")
     public ResponseEntity<Collection<Faculty>> getAllFacultiesByColor( @PathVariable String color){
         if(color!= null&& !color.isBlank()){
             return ResponseEntity.ok (facultyService.findByColor(color));
@@ -27,9 +27,15 @@ public class FacultyController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Faculty>> getAllFacultiesByColorOrName(@RequestParam(required = false) String color,
-                                                                            @RequestParam (required = false) String name){
-        return ResponseEntity.ok(facultyService.findByColorOrNameIgnoreCase(color,name));
+    public ResponseEntity<Collection<Faculty>> getAllFacultiesByColorOrName(@RequestParam(required = false) String name,
+                                                                            @RequestParam(required = false) String color) {
+        if (name != null&& !name.isBlank() ) {
+            return ResponseEntity.ok(facultyService.findByNameIgnoreCase(name));
+        }
+        if (color != null && !color.isBlank() ) {
+            return ResponseEntity.ok(facultyService.findByColorIgnoreCase(color));
+        }
+        return ResponseEntity.ok(Collections.emptyList());
     }
 
     @GetMapping("{id}")

@@ -9,7 +9,7 @@ select * from student
 where name like '%a%';
 
 select * from student
-where age<12;
+where age<id;
 
 select * from student
 ORDER BY  age;

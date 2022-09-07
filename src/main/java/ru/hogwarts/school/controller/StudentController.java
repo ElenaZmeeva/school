@@ -18,7 +18,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("{age}")
+    @GetMapping("/age")
     public ResponseEntity<Collection<Student>> getAllStudentsByAge (@PathVariable int age){
        if(age>0){
            return ResponseEntity.ok (studentService.studentsByAge(age));
