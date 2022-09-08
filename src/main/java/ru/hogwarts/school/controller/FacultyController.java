@@ -29,7 +29,7 @@ public class FacultyController {
     @GetMapping
     public ResponseEntity<Collection<Faculty>> getAllFacultiesByColorOrName(@RequestParam String nameOrColor) {
         if (nameOrColor != null&& !nameOrColor.isBlank() ) {
-            return ResponseEntity.ok(facultyService.findByNameIgnoreCase(nameOrColor));
+            return ResponseEntity.ok(facultyService.findByNameIgnoreCaseOrColorIgnoreCase(nameOrColor));
         }
 
         return ResponseEntity.ok(Collections.emptyList());
